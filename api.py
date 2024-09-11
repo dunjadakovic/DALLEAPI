@@ -20,7 +20,7 @@ def generate_image():
     prompt=prompt,
     )
 
-    image_url = response['data'][0]['url']
+    image_url = response.data[0].url
     return jsonify({'image_url': image_url})
 
 if __name__ == '__main__':
