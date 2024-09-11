@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Set up your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-@app.route('/generate_image', methods=['POST'])
+@app.route('/generate_image', methods=['GET'])
 def generate_image():
     prompt = request.json['prompt']
     response = openai.Image.create(prompt=prompt, n=1, size="256x256")
