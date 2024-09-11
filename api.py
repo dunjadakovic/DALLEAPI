@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 app = Flask(__name__)
@@ -11,7 +11,14 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 @app.route('/generate_image', methods=['GET'])
 def generate_image():
     prompt = request.args.get('prompt')
-    response = openai.Image.create(prompt=prompt, n=1, size="256x256")
+
+    client = OpenAI()
+    
+    response = client.images.generate(
+    model="dall-e-2",
+    prompt=prompt,
+    )
+
     image_url = response['data'][0]['url']
     return jsonify({'image_url': image_url})
 
